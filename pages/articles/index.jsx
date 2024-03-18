@@ -8,7 +8,7 @@ import { makeRequest } from '../../components/common'
 export default function Articles () {
   const router = useRouter()
   const { page } = router.query
-  const { data, error } = makeRequest(`articles?page=${page || '1'}`)
+  const { data, error } = makeRequest(router.isReady ? `articles?page=${page || '1'}` : null)
 
   function getCover (object) {
     if (object.cover) {
@@ -19,10 +19,16 @@ export default function Articles () {
     return null
   }
 
+  if (error) {
+    return <Base error />
+  } else if (!data) {
+    return <Base title='Загрузка' />
+  }
+
   return (
-    <Base error={error && !data}>
+    <Base>
       <main className='articles wrapper'>
-        {data && data.results.map((object) => (
+        {data.results.map((object) => (
           <article key={object.id}>
             <h2><Link href={`/articles/${object.id}`}>{object.title}</Link></h2>
             <p>{object.get_intro}</p>
@@ -34,7 +40,7 @@ export default function Articles () {
               </p>}
           </article>
         ))}
-        {data && <Pagination page={page || '1'} count={data.count} />}
+        <Pagination page={page || '1'} count={data.count} />
       </main>
     </Base>
   )
