@@ -1,2 +1,1 @@
-# velvet-next
-UI к Velvet на Next.js.
+# UI к Velvet на Next.js.
