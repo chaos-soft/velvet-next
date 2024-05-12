@@ -15,8 +15,8 @@ export default function Article () {
     if (!data) {
       return
     }
-    if (data.type === 4) {
-      setTitle(`${data.title} (${data.images.length})`)
+    if (data.article_type === 4) {
+      setTitle(`${data.title} (${data.images_list.length})`)
     } else {
       setTitle(data.title)
     }
@@ -30,10 +30,10 @@ export default function Article () {
 
   return (
     <Base title={title} description={data.get_intro}>
-      {data.type === 5 && <Stream code={data.get_code} />}
+      {data.article_type === 5 && <Stream code={data.get_code} />}
       <main className='article wrapper'>
         <h1>{title}</h1>
-        {data.type === 2 &&
+        {data.article_type === 2 &&
           <div className='iframe'>
             <iframe
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
@@ -42,9 +42,9 @@ export default function Article () {
             />
           </div>}
         <div dangerouslySetInnerHTML={{ __html: data.get_content }} />
-        {data.type === 4 &&
+        {data.article_type === 4 &&
           <div className='album'>
-            {data.images.map((image) => (
+            {data.images_list.map((image) => (
               <a href={`/store/${image}`} key={image}>
                 <img src={`/store/thumbnails/${image}`} alt={image} title={image} />
               </a>
@@ -53,7 +53,7 @@ export default function Article () {
         <footer className='tac'>
           {data.is_published && data.date}
           {' '}
-          {data.type === 4 && <Link href={`/slideshow/${data.id}?text=Любой текст`}>Заставочка</Link>}
+          {data.article_type === 4 && <Link href={`/slideshow/${data.id}?text=Любой текст`}>Заставочка</Link>}
         </footer>
       </main>
     </Base>

@@ -13,8 +13,8 @@ export default function Articles () {
   function getCover (object) {
     if (object.cover) {
       return object.cover
-    } else if (object.images.length) {
-      return `/store/thumbnails/${object.images.slice(-1)}`
+    } else if (object.images_list.length) {
+      return `/store/thumbnails/${object.images_list.slice(-1)}`
     }
     return null
   }

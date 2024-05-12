@@ -12,8 +12,8 @@ export default function Slideshow () {
   const { data, error } = makeRequest(router.isReady ? `articles/${router.query.id}` : null)
 
   function getRandomImage () {
-    const i = getRandomNumber(0, data.images.length - 1)
-    return `/store/${data.images[i]}`
+    const i = getRandomNumber(0, data.images_list.length - 1)
+    return `/store/${data.images_list[i]}`
   }
 
   function getRandomNumber (min, max) {
@@ -26,8 +26,12 @@ export default function Slideshow () {
     return `rotateX(${x}deg) rotateY(${y}deg)`
   }
 
+  function getText (text) {
+    return text.split(' ').map((v) => <>{' '}<span>{v}</span>{' '}</>)
+  }
+
   useEffect(() => {
-    if (!data || !data.images.length) {
+    if (!data || !data.images_list.length) {
       return
     }
     image.current.style.transform = getRotate()
@@ -56,7 +60,7 @@ export default function Slideshow () {
   } else if (!data) {
     return null
     // return <Base title='Загрузка' />
-  } else if (!data.images.length) {
+  } else if (!data.images_list.length) {
     return (
       <Base title={title}>
         <Error message='Нет картинок для показа.' />
@@ -70,7 +74,7 @@ export default function Slideshow () {
         <div className='image' animate={animate}>
           <img alt='' ref={image} src={getRandomImage()} />
         </div>
-        <div className='text'>{router.query.text}</div>
+        <div className={router.query.title ? 'title' : 'text'}>{getText(router.query.text)}</div>
       </div>
     </Base>
   )
