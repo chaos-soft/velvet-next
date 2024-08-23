@@ -11,7 +11,6 @@ export default function Stream ({ code }) {
   const [sc, setSc] = useState(false)
   const [tc, setTc] = useState(false)
   const [tp, setTp] = useState(false)
-  const [vc, setVc] = useState(false)
   const [vp, setVp] = useState(false)
   const [yc, setYc] = useState(false)
   const [yp, setYp] = useState(false)
@@ -22,7 +21,6 @@ export default function Stream ({ code }) {
   const [scUrl, setScUrl] = useState('')
   const [tcUrl, setTcUrl] = useState('')
   const [tpUrl, setTpUrl] = useState('')
-  const [vcUrl, setVcUrl] = useState('')
   const [vpUrl, setVpUrl] = useState('')
   const [ycUrl, setYcUrl] = useState('')
   const [ypUrl, setYpUrl] = useState('')
@@ -64,7 +62,6 @@ export default function Stream ({ code }) {
     setScUrl(`https://sc2tv.ru/${code.s}/chat`)
     setTcUrl(`https://www.twitch.tv/embed/${code.t}/chat?parent=${process.env.NEXT_PUBLIC_HOST}`)
     setTpUrl(`https://player.twitch.tv/?channel=${code.t}&parent=${process.env.NEXT_PUBLIC_HOST}`)
-    setVcUrl(`https://vkplay.live/${code.v}/only-chat?initialMode=0`)
     setVpUrl(`https://vkplay.live/app/embed/${code.v}`)
     setYcUrl(`https://www.youtube.com/live_chat?v=${code.y}&embed_domain=${process.env.NEXT_PUBLIC_HOST}`)
     setYpUrl(`https://www.youtube-nocookie.com/embed/${code.y}`)
@@ -88,19 +85,19 @@ export default function Stream ({ code }) {
           {yc && <iframe src={ycUrl} />}
           {sc && <iframe src={scUrl} />}
           {tc && <iframe src={tcUrl} />}
-          {vc && <iframe src={vcUrl} />}
         </div>
         <div className='controls'>
-          {code.g && <a href={gcUrl} className={gc ? 'active' : ''} onClick={(e) => { setGc(!gc); e.preventDefault() }}>gc</a>}
-          {code.g && <a href={gpUrl} className={gp ? 'active' : ''} onClick={(e) => { setGp(!gp); e.preventDefault() }}>gp</a>}
-          {code.m && <a href={mcUrl} className={mc ? 'active' : ''} onClick={(e) => { setMc(!mc); e.preventDefault() }}>mc</a>}
-          {code.s && <a href={scUrl} className={sc ? 'active' : ''} onClick={(e) => { setSc(!sc); e.preventDefault() }}>sc</a>}
-          {code.t && <a href={tcUrl} className={tc ? 'active' : ''} onClick={(e) => { setTc(!tc); e.preventDefault() }}>tc</a>}
-          {code.t && <a href={tpUrl} className={tp ? 'active' : ''} onClick={(e) => { setTp(!tp); e.preventDefault() }}>tp</a>}
-          {code.v && <a href={vcUrl} className={vc ? 'active' : ''} onClick={(e) => { setVc(!vc); e.preventDefault() }}>vc</a>}
-          {code.v && <a href={vpUrl} className={vp ? 'active' : ''} onClick={(e) => { setVp(!vp); e.preventDefault() }}>vp</a>}
-          {code.y && <a href={ycUrl} className={yc ? 'active' : ''} onClick={(e) => { setYc(!yc); e.preventDefault() }}>yc</a>}
-          {code.y && <a href={ypUrl} className={yp ? 'active' : ''} onClick={(e) => { setYp(!yp); e.preventDefault() }}>yp</a>}
+          <span>плееры:</span>
+          {code.g && <a href={gpUrl} className={gp ? 'active' : ''} onClick={(e) => { setGp(!gp); e.preventDefault() }}>gg</a>}
+          {code.t && <a href={tpUrl} className={tp ? 'active' : ''} onClick={(e) => { setTp(!tp); e.preventDefault() }}>tw</a>}
+          {code.v && <a href={vpUrl} className={vp ? 'active' : ''} onClick={(e) => { setVp(!vp); e.preventDefault() }}>vk</a>}
+          {code.y && <a href={ypUrl} className={yp ? 'active' : ''} onClick={(e) => { setYp(!yp); e.preventDefault() }}>yt</a>}
+          <span>чаты:</span>
+          {code.g && <a href={gcUrl} className={gc ? 'active' : ''} onClick={(e) => { setGc(!gc); e.preventDefault() }}>gg</a>}
+          {code.m && <a href={mcUrl} className={mc ? 'active' : ''} onClick={(e) => { setMc(!mc); e.preventDefault() }}>miranda</a>}
+          {code.s && <a href={scUrl} className={sc ? 'active' : ''} onClick={(e) => { setSc(!sc); e.preventDefault() }}>sc2</a>}
+          {code.t && <a href={tcUrl} className={tc ? 'active' : ''} onClick={(e) => { setTc(!tc); e.preventDefault() }}>tw</a>}
+          {code.y && <a href={ycUrl} className={yc ? 'active' : ''} onClick={(e) => { setYc(!yc); e.preventDefault() }}>yt</a>}
           <i className={`material-icons ${chat ? 'active' : ''}`} onClick={() => setChat(!chat)} title='Показать, скрыть панель'>chat</i>
           <i className={`material-icons ${fullscreen ? 'active' : ''}`} onClick={onClickFullscreen} title='Полноэкранный режим (f)'>fullscreen</i>
         </div>

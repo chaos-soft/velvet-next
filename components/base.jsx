@@ -1,17 +1,25 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import React, { useState } from 'react'
 
 import { Error } from './common'
 
 export default function Base ({ title, description, keywords, error, isEmpty, ...props }) {
+  const [theme, setTheme] = useState('light')
+
+  function switchTheme (theme) {
+    document.cookie = `theme=${theme};max-age=31536000`
+    document.documentElement.dataset.theme = theme
+    setTheme(theme)
+  }
+
   return (
     <>
       <Head>
         <meta name='description' content={description} />
         <meta name='keywords' content={keywords} />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <meta name='yandex-verification' content='73539a8de7bb199e' />
-        <title>{title || '57 Street — статьи, стримы и всякое'}</title>
+        <title>{title || '57 Street — статьи, стримы, Linux, лас плагас'}</title>
       </Head>
       {!isEmpty &&
         <>
@@ -19,6 +27,20 @@ export default function Base ({ title, description, keywords, error, isEmpty, ..
             <h1><Link href='/'><span>5</span><span>7</span> Street</Link></h1>
             <nav>
               <Link href='/articles/57'>Мой маленький стрим</Link>
+              <span
+                className={`material-symbols-outlined ${theme === 'dark' ? 'dn' : ''}`}
+                onClick={() => switchTheme('dark')}
+                title='Тёмная тема'
+              >
+                dark_mode
+              </span>
+              <span
+                className={`material-symbols-outlined ${theme === 'light' ? 'dn' : ''}`}
+                onClick={() => switchTheme('light')}
+                title='Светлая тема'
+              >
+                light_mode
+              </span>
             </nav>
           </header>
           <div className='line mb40' />
@@ -32,7 +54,7 @@ export default function Base ({ title, description, keywords, error, isEmpty, ..
         <>
           <div className='line mb20' />
           <footer>
-            <p>© 2008–2057 <Link href='/'>57 Street</Link></p>
+            <p>© 2008–2024 57st.net, 2024–2057 <Link href='/'>57st.su</Link></p>
             <p><Link href='/articles/79'>О сайте</Link></p>
           </footer>
         </>}

@@ -26,10 +26,6 @@ export default function Slideshow () {
     return `rotateX(${x}deg) rotateY(${y}deg)`
   }
 
-  function getText (text) {
-    return text.split(' ').map((v) => <>{' '}<span>{v}</span>{' '}</>)
-  }
-
   useEffect(() => {
     if (!data || !data.images_list.length) {
       return
@@ -74,7 +70,7 @@ export default function Slideshow () {
         <div className='image' animate={animate}>
           <img alt='' ref={image} src={getRandomImage()} />
         </div>
-        <div className={router.query.title ? 'title' : 'text'}>{getText(router.query.text)}</div>
+        <div className='text'>{router.query.text}</div>
       </div>
     </Base>
   )

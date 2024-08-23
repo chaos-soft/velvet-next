@@ -2,7 +2,9 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
+import Album from '../../components/album'
 import Base from '../../components/base'
+import Rutube from '../../components/rutube'
 import Stream from '../../components/stream'
 import { makeRequest } from '../../components/common'
 
@@ -30,7 +32,9 @@ export default function Article () {
 
   return (
     <Base title={title} description={data.get_intro}>
+      {data.article_type === 4 && <Album images={data.images_list} />}
       {data.article_type === 5 && <Stream code={data.get_code} />}
+      {data.article_type === 6 && <Rutube code={data.get_code} />}
       <main className='article wrapper'>
         <h1>{title}</h1>
         {data.article_type === 2 &&
@@ -42,14 +46,6 @@ export default function Article () {
             />
           </div>}
         <div dangerouslySetInnerHTML={{ __html: data.get_content }} />
-        {data.article_type === 4 &&
-          <div className='album'>
-            {data.images_list.map((image) => (
-              <a href={`/store/${image}`} key={image}>
-                <img src={`/store/thumbnails/${image}`} alt={image} title={image} />
-              </a>
-            ))}
-          </div>}
         <footer className='tac'>
           {data.is_published && data.date}
           {' '}
